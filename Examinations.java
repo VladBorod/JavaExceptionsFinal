@@ -10,8 +10,10 @@ import java.util.List;
 public class Examinations {
 //    arr length test
     public static void arrayLengthExamination(String[] dataArray){
-        if (dataArray.length != 6){
-            throw new InputArraySizeException();
+        if (dataArray.length < 6){
+            throw new InputArraySizeExceptionMin();
+        } else if (dataArray.length > 6) {
+            throw new InputArraySizeExceptionMax();
         }
     }
     public static void nameExamination(String name) {
@@ -68,7 +70,7 @@ public class Examinations {
         int parsedPhoneNumber;
         try{
             parsedPhoneNumber = Integer.parseInt(phoneNumber);
-            if (phoneNumber.length() < 5 || phoneNumber.length() > 11){
+            if (phoneNumber.length() < 1 || phoneNumber.length() > 11){
                 throw new PhoneNumberException();
             }
         } catch (NumberFormatException e){
@@ -77,13 +79,11 @@ public class Examinations {
         return parsedPhoneNumber;
     }
     public static void genderExamination(String gender){
-        String[] genders = {"m", "f", "м", "ж", "M", "F", "М", "Ж"};
+        String[] genders = {"m", "f", "м", "ж"};
 
         boolean found = Arrays.asList(genders).contains(gender);
         if (!found){
             throw new GenderFailureException();
         }
-
-
     }
 }

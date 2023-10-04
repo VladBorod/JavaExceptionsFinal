@@ -1,16 +1,17 @@
 import Exceptions.ConsoleErrorException;
-import Exceptions.IncorrectNameFormatException;
+import Exceptions.FileSysException;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 public class Recorder {
 
 
-    public static Object registration() {
+    public static List<String> registration() throws FileSysException {
         List<String> personalData = new ArrayList<>();
         System.out.println("Enter the data in next given order using space button");
         System.out.println("Name, Surname, Patronymic, Birth Date (format: dd.mm.yyyy), " +
@@ -33,15 +34,14 @@ public class Recorder {
         Examinations.patronymicExamination(dataArray[2]);
         Examinations.birthDateExamination(dataArray[3]);
         Examinations.phoneNumberExamination(dataArray[4]);
-        Examinations.genderExamination(dataArray[5]);
+        Examinations.genderExamination(dataArray[5].toLowerCase(Locale.ROOT));
         personalData.add(dataArray[0]);
         personalData.add(dataArray[1]);
         personalData.add(dataArray[2]);
         personalData.add(dataArray[3]);
         personalData.add(dataArray[4]);
         personalData.add(dataArray[5]);
-        return personalData.toString();
+        FileHandler.fileWriter(personalData);
+        return personalData;
     }
-
-
 }
